@@ -5,22 +5,25 @@
  */
 package operatingsystem;
 
+import java.util.PriorityQueue;
+import operatingsystem.TotalTimeComparator;
+import operatingsystem.Process;
+
 public class SJFScheduler {
 
     private boolean isPreemptive;
 
     SJFScheduler(boolean isPreemptive) {
         this.isPreemptive = isPreemptive;
-        Main.readyProcessesList = new ReadyProcessesList(new TotalTimeComparator());
+        Main.readyProcessesList.defineQueueType(new PriorityQueue<>(new TotalTimeComparator()));
     }
 
-    /*
-    /* τοποθετεί μια διεργασία στην κατάλληλη θέση της λίστας των έτοιμων διεργασιών
+    /* τοποθετεί μια διεργασία στην κατάλληλη θέση της λίστας των έτοιμων διεργασιών */
     public void addProcessToReadyList(Process process) {
         Main.readyProcessesList.addProcess(process);
     }
-     */
- /* εκτελεί την εναλλαγή διεργασίας στη CPU με βάση τη λίστα έτοιμων διεργασιών και το είδος του
+
+    /* εκτελεί την εναλλαγή διεργασίας στη CPU με βάση τη λίστα έτοιμων διεργασιών και το είδος του
     αλγορίθμου δρομολόγησης (preemptive / non-preemptive) */
     public void SJF() {
 
@@ -29,14 +32,13 @@ public class SJFScheduler {
         if (isPreemptive) {
 
             if (runningProcess != null) {
-
+                
                 if (runningProcess.getCurrentState() == ProcessState.TERMINATED) {
                     // process has terminated
                     Main.cpu.removeProcessFromCpu();
                     Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
 
                 } else {
-
                     if (runningProcess.getRemainingTime() > Main.readyProcessesList.getProcess().getRemainingTime()) {
 
                         Main.cpu.removeProcessFromCpu();
@@ -44,11 +46,9 @@ public class SJFScheduler {
                         Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
 
                     }
-
                 }
 
             } else {
-
                 Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
             }
 
@@ -57,19 +57,14 @@ public class SJFScheduler {
         } else {
 
             if (runningProcess != null) {
-
-                    // process has terminated
-                    Main.cpu.removeProcessFromCpu();
-                    Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
-                    Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + runningProcess.getRemainingTime());
-                
-
-            } else {
-
+                // process has terminated
+                Main.cpu.removeProcessFromCpu();
                 Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
-                Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + runningProcess.getRemainingTime());
-
+            } else {
+                Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
             }
+            
+            Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + runningProcess.getRemainingTime());
 
         }
 

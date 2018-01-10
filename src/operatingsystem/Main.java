@@ -17,10 +17,10 @@ public class Main {
     public static ReadyProcessesList readyProcessesList;
     public static ProcessGenerator processGen;
     public static Statistics stats;
-    
+
     public static boolean end() {
-        
-        return  (cpu.getRunningProcess()== null) && (readyProcessesList.isEmpty());
+
+        return (cpu.getRunningProcess() == null) && (readyProcessesList.isEmpty());
     }
 
     /**
@@ -34,17 +34,12 @@ public class Main {
         newProcessList = new NewProcessTemporaryList();
         stats = new Statistics("statistics.txt");
         clock = new Clock();
-        
 
         SJFScheduler sjfs = new SJFScheduler(true);
 
         while (!end()) {
-
             sjfs.SJF();
-            
             cpu.execute();
-            
-
         }
 
     }

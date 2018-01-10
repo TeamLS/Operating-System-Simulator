@@ -19,9 +19,10 @@ public class ReadyProcessesList {
     private Queue<Process> processList;
 
     /* constructor της κλάσης */
-    public ReadyProcessesList(Comparator comp) {
-
-        this.processList = new PriorityQueue<>(comp);
+    public ReadyProcessesList() {}
+    
+    public void defineQueueType(Queue queue){
+        this.processList = queue;
     }
 
     /* προσθήκη μιας νέας έτοιμης διεργασίας στη λίστα*/

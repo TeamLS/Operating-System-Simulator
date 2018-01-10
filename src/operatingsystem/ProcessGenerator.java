@@ -33,6 +33,6 @@ filename για αποθήκευση, αλλιώς ανοίγει το αρχε�
 
     /* ανάγνωση των στοιχείων νέων διεργασιών από το αρχείο inputFile */
     public List<Process> parseProcessFile() {
-                return new ArrayList<>();
+        return new ArrayList<>();
     }
 }
