@@ -17,30 +17,46 @@ public class CPU {
 
     /* constructor – αρχικοποίηση των πεδίων*/
     public CPU() {
-        
-                this.runningProcess = null;
-                this.timeToNextContextSwitch = 0;
-                this.lastProcessStartTime = 0;
-                
+
+        this.runningProcess = null;
+        this.timeToNextContextSwitch = 0;
+        this.lastProcessStartTime = 0;
+
     }
 
     /* εισαγωγή της διεργασίας προς εκτέλεση στη CPU */
     public void addProcess(Process process) {
-        
+
+        process.setProcessState(ProcessState.RUNNING);
         this.runningProcess = process;
     }
 
     /* εξαγωγή της τρέχουσας διεργασίας από τη CPU */
     public Process removeProcessFromCpu() {
+
+        Process proc = this.runningProcess;
+        this.runningProcess = null;
         
-         Process  proc = this.runningProcess;
-         this.runningProcess = null;
-         
-         return proc;
+        
+        return proc;
     }
 
     /* εκτέλεση της διεργασίας με αντίστοιχη μέιωση του χρόνου εκτέλεσής της */
     public void execute() {
         
+        runningProcess.decreaseCpuRemainingTime();
+        Main.clock.Time_Run();
+        
+        if (runningProcess.getRemainingTime() == 0){
+            runningProcess.setProcessState(ProcessState.TERMINATED);
+        } else {           
+            runningProcess.setProcessState(ProcessState.READY);
+        }
+
     }
+    
+    public Process getRunningProcess(){
+        return this.runningProcess;
+    }
+    
 }

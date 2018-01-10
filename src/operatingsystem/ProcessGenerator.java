@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /* Η συγκεκριμένη κλάση αναπαριστά μια γεννήτρια διεργασιών για την προσομοίωση */
-class ProcessGenerator {
+public class ProcessGenerator {
 
     /* αρχείο που αποθηκεύονται τα δεδομένα των νέων διεργασιών */
     private File inputFile;

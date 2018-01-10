@@ -9,7 +9,7 @@ import java.io.File;
 
 /* Αυτή η κλάση υπολογίζει ορισμένα στατιστικά στοιχεία βάσει των διεργασιών που εμφανίζονται στο σύστημα και
 τα αποθηκεύει σε ένα αρχείο */
-class Statistics {
+public class Statistics {
 
     /* ο τρέχων μέσος χρόνος αναμονής των διεργασιών προς εκτέλεση */
     private float averageWaitingTime;
@@ -33,7 +33,7 @@ class Statistics {
     public void UpdateMaximumListLength() {
     }
 
-    /*υ πολογίζει τον μέσο χρόνο αναμονής*/
+    /*υπολογίζει τον μέσο χρόνο αναμονής*/
     public float CalculateAverageWaitingTime() {
 
         //calculate

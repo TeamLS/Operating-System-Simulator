@@ -18,7 +18,7 @@ public class Process {
 Terminated */
     private int currentState;
     private int pid;
-    
+
     /* constructor – αρχικοποίηση των πεδίων */
     public Process(int pid, int arrivalTime, int cpuBurstTime) {
 
@@ -26,7 +26,8 @@ Terminated */
         this.arrivalTime = arrivalTime;
         this.cpuTotalTime = cpuBurstTime;
         this.cpuRemainingTime = cpuBurstTime;
-        
+        this.currentState = ProcessState.NEW;
+
     }
 
     /* θέτει την κατάσταση της διεργασίας ίση με την παράμετρο newState (αλλαγή της κατάστασής της) */
@@ -40,6 +41,12 @@ Terminated */
     public void changeCpuRemainingTime(int newCpuRemainingTime) {
 
         this.cpuRemainingTime = newCpuRemainingTime;
+    }
+
+    public void decreaseCpuRemainingTime() {
+        if (this.cpuRemainingTime > 0) {
+            this.cpuRemainingTime--;
+        }
     }
 
     public int getTotalTime() {
@@ -56,18 +63,22 @@ Terminated */
 
         return this.arrivalTime;
     }
-    
+
+
+    public int getCurrentState() {
+        return this.currentState;
+    }
+
     @Override
-    public String toString(){
-        
-       // StringBuilder info  = new StringBuilder();
-        
-       return "PID: " + this.pid + '\n' +
-                 "Current State: " + this.currentState + '\n' +
-                 "Arrival Time: " + this.arrivalTime + '\n' +
-                 "CPU Total Time: " + this.cpuTotalTime + '\n' +
-                 "CPU Remaining Time: " + this.cpuRemainingTime + '\n';
-                 
+    public String toString() {
+
+        // StringBuilder info  = new StringBuilder();
+        return "PID: " + this.pid + '\n'
+                + "Current State: " + this.currentState + '\n'
+                + "Arrival Time: " + this.arrivalTime + '\n'
+                + "CPU Total Time: " + this.cpuTotalTime + '\n'
+                + "CPU Remaining Time: " + this.cpuRemainingTime + '\n';
+
     }
 
 }
