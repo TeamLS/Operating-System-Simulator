@@ -8,6 +8,8 @@ package operatingsystem;
 /* Η συγκεκριμένη κλάση αναπαριστά μια διεργασία του συστήματος */
 public class Process {
 
+    /* περιέχει την χρονική διάρκεια αναμονής στην ready list */
+    private int waitingTime;
     /* περιέχει την χρονική στιγμή άφιξης της διεργασίας στο σύστημα */
     private final int arrivalTime;
     /* περιέχει το συνολικό χρόνο απασχόλησης της CPU από τη διεργασία */
@@ -17,6 +19,8 @@ public class Process {
     /* περιέχει την τρέχουσα κατάσταση της διεργασίας: 0 – Created/New, 1 – Ready/Waiting, 2 – Running, 3 –
 Terminated */
     private int currentState;
+    private int responseTime;
+    private boolean requestAccepted;
     private int pid;
 
     /* constructor – αρχικοποίηση των πεδίων */
@@ -27,6 +31,8 @@ Terminated */
         this.cpuTotalTime = cpuBurstTime;
         this.cpuRemainingTime = cpuBurstTime;
         this.currentState = ProcessState.NEW;
+        this.waitingTime = 0;
+        this.requestAccepted = false;
 
     }
 
@@ -64,9 +70,31 @@ Terminated */
         return this.arrivalTime;
     }
 
-
     public int getCurrentState() {
         return this.currentState;
+    }
+
+    public void increaseWaitingTime() {
+        this.waitingTime++;
+    }
+
+    public void increaseResponseTime() {
+        if (!requestAccepted) {
+            this.responseTime++;
+
+        }
+    }
+
+    public int getWaitingTime() {
+        return this.waitingTime;
+    }
+
+    public int getResponseTime() {
+        return this.responseTime;
+    }
+
+    public void requestAccepted() {
+
     }
 
     @Override

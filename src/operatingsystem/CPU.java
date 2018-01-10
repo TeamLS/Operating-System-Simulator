@@ -5,6 +5,8 @@
  */
 package operatingsystem;
 
+import static operatingsystem.Main.stats;
+
 /* Η κλάση αυτή παριστάνει τη μονάδα επεξεργασίας CPU του συστήματος */
 public class CPU {
 
@@ -36,27 +38,33 @@ public class CPU {
 
         Process proc = this.runningProcess;
         this.runningProcess = null;
-        
-        
+
         return proc;
     }
 
     /* εκτέλεση της διεργασίας με αντίστοιχη μέιωση του χρόνου εκτέλεσής της */
     public void execute() {
-        
+
         runningProcess.decreaseCpuRemainingTime();
         Main.clock.Time_Run();
-        
-        if (runningProcess.getRemainingTime() == 0){
+
+        if (runningProcess.getRemainingTime() == 0) {
             runningProcess.setProcessState(ProcessState.TERMINATED);
-        } else {           
-            runningProcess.setProcessState(ProcessState.READY);
+            stats.processTerminated(runningProcess);
+        }
+
+        // Update waitingTime and responseTime of all processes
+        for (Process proc : Main.readyProcessesList.getAllReadyProcesses()) {
+            if (proc != runningProcess) {
+                proc.increaseWaitingTime();
+                proc.increaseResponseTime();
+            }
         }
 
     }
-    
-    public Process getRunningProcess(){
+
+    public Process getRunningProcess() {
         return this.runningProcess;
     }
-    
+
 }

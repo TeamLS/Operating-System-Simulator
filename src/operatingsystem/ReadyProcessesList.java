@@ -5,6 +5,7 @@
  */
 package operatingsystem;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -27,6 +28,7 @@ public class ReadyProcessesList {
     public void addProcess(Process item) {
         item.setProcessState(ProcessState.READY);
         this.processList.add(item);
+        Main.stats.UpdateMaximumListLength();
     }
 
     /* επιστροφή της διεργασίας της οποίας η σειρά είναι να εκτελεστεί στη CPU σύμφωνα με τον εκάστοτε
@@ -40,7 +42,9 @@ public class ReadyProcessesList {
     }
         
     public Process getAndRemoveProcessToRunInCPU() {
-        return this.processList.poll();
+        Process processToRun = this.processList.poll();
+        processToRun.requestAccepted();
+        return processToRun;
     }   
 
     /* εκτύπωση του περιεχομένου της λίστας στην οθόνη */
@@ -49,6 +53,14 @@ public class ReadyProcessesList {
         for (Process proc : processList) {
             proc.toString();
         }
+    }
+    
+    public ArrayList<Process> getAllReadyProcesses(){
+        return new ArrayList(processList);
+    }
+    
+    public int getSize(){
+        return processList.size();
     }
 
 }

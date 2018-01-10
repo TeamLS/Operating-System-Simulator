@@ -14,6 +14,7 @@ public class Main {
     public static Clock clock;
     public static CPU cpu;
     public static NewProcessTemporaryList newProcessList;
+    public static ReadyProcessesList readyProcessesList;
     public static ProcessGenerator processGen;
     public static Statistics stats;
 
