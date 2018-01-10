@@ -33,33 +33,42 @@ public class SJFScheduler {
                 if (runningProcess.getCurrentState() == ProcessState.TERMINATED) {
                     // process has terminated
                     Main.cpu.removeProcessFromCpu();
+                    Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
 
                 } else {
-                    Main.readyProcessesList.addProcess(runningProcess);
+
+                    if (runningProcess.getRemainingTime() > Main.readyProcessesList.getProcess().getRemainingTime()) {
+
+                        Main.cpu.removeProcessFromCpu();
+                        Main.readyProcessesList.addProcess(runningProcess);
+                        Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
+
+                    }
+
                 }
 
+            } else {
+
+                Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
             }
 
-            Process exe_proc = Main.readyProcessesList.getAndRemoveProcess();
-            Main.cpu.addProcess(exe_proc);
             Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + 1);
 
         } else {
 
             if (runningProcess != null) {
 
-                if (runningProcess.getCurrentState() == ProcessState.TERMINATED) {
                     // process has terminated
                     Main.cpu.removeProcessFromCpu();
                     Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
-                }
+                    Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + runningProcess.getRemainingTime());
+                
 
             } else {
-                
-                Process exe_proc = Main.readyProcessesList.getAndRemoveProcess();
-                Main.cpu.addProcess(exe_proc);
-                Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + 1);
-                
+
+                Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
+                Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + runningProcess.getRemainingTime());
+
             }
 
         }
