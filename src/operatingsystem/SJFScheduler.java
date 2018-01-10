@@ -14,60 +14,55 @@ public class SJFScheduler {
         Main.readyProcessesList = new ReadyProcessesList(new TotalTimeComparator());
     }
 
-    /* τοποθετεί μια διεργασία στην κατάλληλη θέση της λίστας των έτοιμων διεργασιών*/
+    /*
+    /* τοποθετεί μια διεργασία στην κατάλληλη θέση της λίστας των έτοιμων διεργασιών
     public void addProcessToReadyList(Process process) {
         Main.readyProcessesList.addProcess(process);
     }
-
-    /* εκτελεί την εναλλαγή διεργασίας στη CPU με βάση τη λίστα έτοιμων διεργασιών και το είδος του
+     */
+ /* εκτελεί την εναλλαγή διεργασίας στη CPU με βάση τη λίστα έτοιμων διεργασιών και το είδος του
     αλγορίθμου δρομολόγησης (preemptive / non-preemptive) */
     public void SJF() {
 
+        Process runningProcess = Main.cpu.getRunningProcess();
+
         if (isPreemptive) {
-
-            Process runningProcess = Main.cpu.getRunningProcess();
-
-            if (runningProcess != null) {
-
-                Process processToRunInCPU = Main.readyProcessesList.getProcessToRunInCPU();
-
-                if (runningProcess.getRemainingTime() > processToRunInCPU.getRemainingTime()) {
-                    // There must be a preemption here
-
-                    Main.readyProcessesList.removeProcess();
-
-                    Main.cpu.removeProcessFromCpu();
-                    if (runningProcess.getCurrentState() == ProcessState.READY) {
-                        // process hasn't terminated, so we add it in Ready Processes List
-                        Main.readyProcessesList.addProcess(runningProcess);
-                    }
-
-                    Main.cpu.addProcess(processToRunInCPU);
-                }
-
-            } else {
-                Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcessToRunInCPU());
-            }
-
-        } else {
-
-            Process runningProcess = Main.cpu.getRunningProcess();
 
             if (runningProcess != null) {
 
                 if (runningProcess.getCurrentState() == ProcessState.TERMINATED) {
                     // process has terminated
                     Main.cpu.removeProcessFromCpu();
-                    Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcessToRunInCPU());
+
+                } else {
+                    Main.readyProcessesList.addProcess(runningProcess);
+                }
+
+            }
+
+            Process exe_proc = Main.readyProcessesList.getAndRemoveProcess();
+            Main.cpu.addProcess(exe_proc);
+            Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + 1);
+
+        } else {
+
+            if (runningProcess != null) {
+
+                if (runningProcess.getCurrentState() == ProcessState.TERMINATED) {
+                    // process has terminated
+                    Main.cpu.removeProcessFromCpu();
+                    Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
                 }
 
             } else {
-                Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcessToRunInCPU());
+                
+                Process exe_proc = Main.readyProcessesList.getAndRemoveProcess();
+                Main.cpu.addProcess(exe_proc);
+                Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + 1);
+                
             }
 
         }
-
-        Main.cpu.execute();
 
     }
 }

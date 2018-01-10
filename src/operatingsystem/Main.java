@@ -17,6 +17,11 @@ public class Main {
     public static ReadyProcessesList readyProcessesList;
     public static ProcessGenerator processGen;
     public static Statistics stats;
+    
+    public static boolean end() {
+        
+        return  (cpu.getRunningProcess()== null) && (readyProcessesList.isEmpty());
+    }
 
     /**
      * @param args the command line arguments
@@ -33,12 +38,12 @@ public class Main {
 
         SJFScheduler sjfs = new SJFScheduler(true);
 
-        while (true) {
+        while (!end()) {
 
             sjfs.SJF();
+            
             cpu.execute();
-
-            clock.Time_Run();
+            
 
         }
 

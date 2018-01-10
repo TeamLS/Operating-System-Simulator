@@ -33,18 +33,19 @@ public class ReadyProcessesList {
 
     /* επιστροφή της διεργασίας της οποίας η σειρά είναι να εκτελεστεί στη CPU σύμφωνα με τον εκάστοτε
 αλγόριθμο δρομολόγησης */
-    public Process getProcessToRunInCPU() {
+    public Process getProcess() {
+        
         return this.processList.peek();
     }   
     
     public void removeProcess() {
+        
         this.processList.remove();
     }
         
-    public Process getAndRemoveProcessToRunInCPU() {
-        Process processToRun = this.processList.poll();
-        processToRun.requestAccepted();
-        return processToRun;
+    public Process getAndRemoveProcess() {
+      
+        return this.processList.poll();
     }   
 
     /* εκτύπωση του περιεχομένου της λίστας στην οθόνη */
@@ -63,4 +64,8 @@ public class ReadyProcessesList {
         return processList.size();
     }
 
+    public boolean isEmpty() {
+        
+        return processList.isEmpty();
+    }
 }

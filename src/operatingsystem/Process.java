@@ -95,6 +95,7 @@ Terminated */
 
     public void requestAccepted() {
 
+        this.requestAccepted = true;
     }
 
     @Override

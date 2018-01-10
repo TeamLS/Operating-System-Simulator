@@ -29,8 +29,10 @@ public class CPU {
     /* εισαγωγή της διεργασίας προς εκτέλεση στη CPU */
     public void addProcess(Process process) {
 
-        process.setProcessState(ProcessState.RUNNING);
-        this.runningProcess = process;
+        if (process != null) {
+            process.setProcessState(ProcessState.RUNNING);
+            this.runningProcess = process;
+        }
     }
 
     /* εξαγωγή της τρέχουσας διεργασίας από τη CPU */
@@ -42,23 +44,41 @@ public class CPU {
         return proc;
     }
 
+    public void setTimeToNextContextSwitch(int time) {
+
+        this.timeToNextContextSwitch = time;
+    }
+
     /* εκτέλεση της διεργασίας με αντίστοιχη μέιωση του χρόνου εκτέλεσής της */
     public void execute() {
 
-        runningProcess.decreaseCpuRemainingTime();
-        Main.clock.Time_Run();
-
-        if (runningProcess.getRemainingTime() == 0) {
-            runningProcess.setProcessState(ProcessState.TERMINATED);
-            stats.processTerminated(runningProcess);
+        if (runningProcess == null) {
+            return;
         }
 
-        // Update waitingTime and responseTime of all processes
-        for (Process proc : Main.readyProcessesList.getAllReadyProcesses()) {
-            if (proc != runningProcess) {
-                proc.increaseWaitingTime();
-                proc.increaseResponseTime();
+        this.lastProcessStartTime = Main.clock.ShowTime();
+        
+        while (Main.clock.ShowTime() < this.timeToNextContextSwitch) {
+
+            if (runningProcess.getRemainingTime() == 0) {
+                runningProcess.setProcessState(ProcessState.TERMINATED);
+                stats.processTerminated(runningProcess);
+                break;
             }
+
+            
+            Main.clock.Time_Run();
+               
+            runningProcess.decreaseCpuRemainingTime();
+
+            // Update waitingTime and responseTime of all processes
+            for (Process proc : Main.readyProcessesList.getAllReadyProcesses()) {
+                if (proc != runningProcess) {
+                    proc.increaseWaitingTime();
+                    proc.increaseResponseTime();
+                }
+            }
+
         }
 
     }

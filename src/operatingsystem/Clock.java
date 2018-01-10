@@ -6,10 +6,10 @@
 package operatingsystem;
 
 /* Κλάση που αναπαριστά το ρολόι του συστήματος */
-public class Clock {
+class Clock {
 
     /* αποθηκεύει τον τρέχων αριθμό χτύπων ρολογιού που έχουν παρέλθει */
-    public int ticks;
+    protected static int ticks;
 
     /* constructor της κλάσης */
     public Clock() {
