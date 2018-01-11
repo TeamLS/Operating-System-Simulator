@@ -34,6 +34,7 @@ public class Main {
         newProcessList = new NewProcessTemporaryList();
         stats = new Statistics("statistics.txt");
         clock = new Clock();
+        readyProcessesList = new ReadyProcessesList();
 
         SJFScheduler sjfs = new SJFScheduler(true);
 
