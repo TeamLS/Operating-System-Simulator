@@ -7,6 +7,7 @@ package operatingsystem;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /* Αυτή η κλάση υπολογίζει ορισμένα στατιστικά στοιχεία βάσει των διεργασιών που εμφανίζονται στο σύστημα και
 τα αποθηκεύει σε ένα αρχείο */
@@ -27,12 +28,13 @@ public class Statistics {
     /*αρχείο που αποθηκεύονται τα στατιστικά δεδομένα */
     private File outputFile;
 
-    private ArrayList<Process> terminatedProcesses;
+    private List<Process> terminatedProcesses;
 
     /* constructor της κλάσης */
     public Statistics(String filename) {
 
         this.maximumLengthOfReadyProcessesList = 0;
+        this.terminatedProcesses  = new ArrayList<>();
 
     }
 

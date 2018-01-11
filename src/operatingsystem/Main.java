@@ -5,10 +5,6 @@
  */
 package operatingsystem;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author User
@@ -35,23 +31,22 @@ public class Main {
 
         processGen = new ProcessGenerator("Inputfile.txt", false);
         cpu = new CPU();
+        newProcessList = new NewProcessTemporaryList();
         stats = new Statistics("statistics.txt");
         clock = new Clock();
         readyProcessesList = new ReadyProcessesList();
 
-        try {
-            newProcessList = new NewProcessTemporaryList();
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         SJFScheduler sjfs = new SJFScheduler(true);
+        sjfs.addProcessToReadyList(new Process(1,2,3799));
+         sjfs.addProcessToReadyList(new Process(2,2880,3884));
 
         while (!end()) {
+            
             sjfs.SJF();
             cpu.execute();
         }
 
+        System.out.println(clock.ShowTime());
     }
 
 }

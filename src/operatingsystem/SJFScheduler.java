@@ -39,7 +39,9 @@ public class SJFScheduler {
                     Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
 
                 } else {
-                    if (runningProcess.getRemainingTime() > Main.readyProcessesList.getProcess().getRemainingTime()) {
+                    
+                    Process proc =  Main.readyProcessesList.getProcess();
+                    if ( proc!=null  && ( runningProcess.getRemainingTime() > Main.readyProcessesList.getProcess().getRemainingTime())) {
 
                         Main.cpu.removeProcessFromCpu();
                         Main.readyProcessesList.addProcess(runningProcess);

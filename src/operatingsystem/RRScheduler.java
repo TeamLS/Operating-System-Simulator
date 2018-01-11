@@ -30,15 +30,18 @@ public class RRScheduler {
         if (runningProcess != null) {
 
             if (runningProcess.getCurrentState() != ProcessState.TERMINATED) {
+                // process has not terminated yet
                 Main.readyProcessesList.addProcess(runningProcess);
+
             }
             Main.cpu.removeProcessFromCpu();
+           
 
         }
         
-        Process nextProcess = Main.readyProcessesList.getAndRemoveProcess();
-        Main.cpu.addProcess(nextProcess);
-        Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + Math.min(quantum, nextProcess.getRemainingTime()));
+         Process nextProcess = Main.readyProcessesList.getAndRemoveProcess();
+         Main.cpu.addProcess(nextProcess);
+         Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + Math.min(quantum, nextProcess.getRemainingTime()));
 
     }
 }
