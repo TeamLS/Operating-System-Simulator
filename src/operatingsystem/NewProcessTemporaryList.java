@@ -38,7 +38,7 @@ public class NewProcessTemporaryList {
         
          for (Process proc : processList) {
                 
-                 proc.toString();
+                System.out.println(proc.toString());
             }
     }
 }

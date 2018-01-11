@@ -34,13 +34,13 @@ class ProcessGenerator {
     filename για αποθήκευση, αλλιώς ανοίγει το αρχείο inputFile για ανάγνωση */
     public ProcessGenerator(String filename, boolean readFile) throws IOException {
 
-        if(filename.compareTo("filename") != 0) {
+        if (filename.compareTo("filename") != 0) {
             System.err.println("Error: In 'Main' function give as first parameter to processGenerator the String 'filename' and none other string."); //Ασφάλια.
             System.exit(1);
         }
-        
+
         inputFile = new File(filename);
-        
+
         if (readFile == false) {
 
             inputFile.createNewFile();
@@ -57,17 +57,18 @@ class ProcessGenerator {
 
         } else {
 
-            if(inputFile.exists() == false) {
+            if (inputFile.exists() == false) {
                 System.err.println("Error: Expected file by name 'filename.file' in src");
                 System.exit(2);
             }
-            
+
             reader = new BufferedReader(new FileReader(filename));
-            
+
             processes = new ArrayList<>();
             processes = parseProcessFile();
-            
+
             reader.close();
+            
         }
 
     }
@@ -110,9 +111,11 @@ class ProcessGenerator {
         return processes; //Τοποθέτηση των νέων διεργασιών στην λίστα.
         //return new ArrayList<>(); Δεν χρειάστηκε
     }
-    
-     public ArrayList<Process> getProcesses(){
-         return processes;
-     }
-    
+
+    public void addProcessesToTemporayList() {
+        for (Process proc : processes) {
+            Main.newProcessList.addNewProcess(proc);
+        }
+    }
+
 }
