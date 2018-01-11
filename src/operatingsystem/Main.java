@@ -5,6 +5,8 @@
  */
 package operatingsystem;
 
+import java.io.IOException;
+
 /**
  *
  * @author User
@@ -25,11 +27,12 @@ public class Main {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         // TODO code application logic here
 
-        processGen = new ProcessGenerator("Inputfile.txt", false);
+        processGen = new ProcessGenerator("filename", false);
         cpu = new CPU();
         newProcessList = new NewProcessTemporaryList();
         stats = new Statistics("statistics.txt");
@@ -38,7 +41,7 @@ public class Main {
 
         SJFScheduler sjfs = new SJFScheduler(true);
         sjfs.addProcessToReadyList(new Process(1,2,3799));
-         sjfs.addProcessToReadyList(new Process(2,2880,3884));
+        sjfs.addProcessToReadyList(new Process(2,2880,3884));
 
         while (!end()) {
             
