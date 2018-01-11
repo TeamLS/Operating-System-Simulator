@@ -28,10 +28,10 @@ public class CPU {
 
     /* εισαγωγή της διεργασίας προς εκτέλεση στη CPU */
     public void addProcess(Process process) {
-
         if (process != null) {
             process.setProcessState(ProcessState.RUNNING);
             this.runningProcess = process;
+            process.requestAccepted();
         }
     }
 

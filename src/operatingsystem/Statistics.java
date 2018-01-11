@@ -12,6 +12,8 @@ import java.util.ArrayList;
 τα αποθηκεύει σε ένα αρχείο */
 public class Statistics {
 
+    /* ο μέσος χρόνος επιστροφής των διεργασιών */
+    private float averageTurnaroundTime;
     /* ο μέσος χρόνος αναμονής των διεργασιών προς εκτέλεση */
     private float averageWaitingTime;
     /* ο τρέχων συνολικός χρόνος αναμονής διεργασιών */
@@ -45,7 +47,12 @@ public class Statistics {
     public void processTerminated(Process process) {
         this.terminatedProcesses.add(process);
     }
-
+    
+    public int getMaximumLengthOfReadyProcessesList(){
+        return maximumLengthOfReadyProcessesList;
+    }
+    
+    
     /*υπολογίζει τον μέσο χρόνο απόκρισης*/
     public float CalculateAverageWaitingTime() {
 
@@ -74,7 +81,21 @@ public class Statistics {
         return this.responseTime;
     }
 
-    /*υπολογίζει τον μέσο χρόνο αναμονής*/
+    /*υπολογίζει τον μέσο χρόνο επιστροφής*/
+    public float CalculateAverageTurnaroundTime() {
+
+        averageTurnaroundTime = 0;
+
+        for (Process proc : terminatedProcesses) {
+            averageTurnaroundTime += proc.getWaitingTime() + proc.getResponseTime();
+        }
+        
+        averageTurnaroundTime /= terminatedProcesses.size();
+        
+        return this.averageTurnaroundTime;
+    }
+    
+    /*υπολογίζει τον συνολικό χρόνο αναμονής*/
     public float CalculateTotalWaitingTime() {
 
         totalWaitingTime = 0;

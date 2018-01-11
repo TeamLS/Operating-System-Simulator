@@ -81,7 +81,6 @@ Terminated */
     public void increaseResponseTime() {
         if (!requestAccepted) {
             this.responseTime++;
-
         }
     }
 
