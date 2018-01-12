@@ -22,7 +22,11 @@ public class Main {
 
     public static boolean end() {
 
-        return (cpu.getRunningProcess() == null) && (readyProcessesList.isEmpty());
+        /*System.out.println("CPU RUNNING PROCESS NULL: "+(cpu.getRunningProcess() == null));
+        System.out.println("READY PROCESS LIST EMPTY: "+readyProcessesList.isEmpty());
+        System.out.println("NEW PROCESS LIST EMPTY: "+newProcessList.isEmpty());*/
+        
+        return (cpu.getRunningProcess() == null) && (readyProcessesList.isEmpty()) && (newProcessList.isEmpty());
     }
 
     /**
@@ -37,7 +41,7 @@ public class Main {
         cpu = new CPU();
         newProcessList = new NewProcessTemporaryList();
         processParse.addProcessesToTemporayList();
-        newProcessList.printList();
+        //newProcessList.printList();
         stats = new Statistics("statistics.txt");
         clock = new Clock();
         readyProcessesList = new ReadyProcessesList();

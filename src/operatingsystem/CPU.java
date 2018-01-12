@@ -53,6 +53,7 @@ public class CPU {
     public void execute() {
 
         if (runningProcess == null) {
+            Main.clock.Time_Run();
             return;
         }
 

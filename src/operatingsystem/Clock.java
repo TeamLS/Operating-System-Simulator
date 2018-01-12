@@ -26,6 +26,8 @@ class Clock {
         this.ticks++;
         
         newProcessList.update();
+        
+        
     }
 
     /* επιστροφή της ώρας βάσει της μεταβλητής ticks */
