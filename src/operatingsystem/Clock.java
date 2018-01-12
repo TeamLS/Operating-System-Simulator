@@ -5,6 +5,8 @@
  */
 package operatingsystem;
 
+import static operatingsystem.Main.newProcessList;
+
 /* Κλάση που αναπαριστά το ρολόι του συστήματος */
 class Clock {
 
@@ -22,6 +24,8 @@ class Clock {
     public void Time_Run() {
 
         this.ticks++;
+        
+        newProcessList.update();
     }
 
     /* επιστροφή της ώρας βάσει της μεταβλητής ticks */

@@ -17,28 +17,38 @@ public class NewProcessTemporaryList {
 
     /* constructor - αρχικοποίηση της λίστας και άλλων πεδίων */
     public NewProcessTemporaryList() {
-        
+
         this.processList = new LinkedList<>();
     }
 
     /* εισαγωγή μιας νέας διεργασίας στη λίστα */
     public void addNewProcess(Process process) {
-        
+
         this.processList.add(process);
     }
 
     /* επιστροφή της πρώτης διεργασίας της λίστας */
     public Process getFirst() {
-        
+
         return this.processList.poll();
     }
 
     /* εκτύπωση της λίστας με τις νέες διεργασίες στην οθόνη */
     public void printList() {
-        
-         for (Process proc : processList) {
-                
-                System.out.println(proc.toString());
+
+        for (Process proc : processList) {
+
+            System.out.println(proc.toString());
+        }
+    }
+
+    void update() {
+
+        for (Process proc : processList) {
+            if (proc.getArrivalTime() == Main.clock.ShowTime()){
+                this.addNewProcess(proc);
             }
+        }
+
     }
 }
