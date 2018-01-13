@@ -32,20 +32,19 @@ public class SJFScheduler {
         if (isPreemptive) {
 
             if (runningProcess != null) {
-                
+
                 if (runningProcess.getCurrentState() == ProcessState.TERMINATED) {
                     // process has terminated
                     Main.cpu.removeProcessFromCpu();
                     Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
 
                 } else {
-                    
-                    Process proc =  Main.readyProcessesList.getProcess();
-                    
-                    if ( proc!=null  && ( runningProcess.getRemainingTime() > Main.readyProcessesList.getProcess().getRemainingTime())) {
+
+                    Process proc = Main.readyProcessesList.getProcess();
+
+                    if (proc != null && (runningProcess.getRemainingTime() > Main.readyProcessesList.getProcess().getRemainingTime())) {
 
                         // Context Switching
-                        
                         Main.cpu.removeProcessFromCpu();
                         Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
                         Main.readyProcessesList.addProcess(runningProcess);
@@ -60,17 +59,20 @@ public class SJFScheduler {
             Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime());
 
         } else {
+            
+            Process nextProcess = null;
 
             if (runningProcess != null) {
                 // process has terminated
                 Main.cpu.removeProcessFromCpu();
-                Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
-            } else {
-                Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
             }
             
-            Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + runningProcess.getRemainingTime());
+            nextProcess = Main.readyProcessesList.getAndRemoveProcess();
 
+            if (nextProcess != null) {
+                Main.cpu.addProcess(nextProcess);
+                Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + nextProcess.getRemainingTime());
+            }
         }
 
     }

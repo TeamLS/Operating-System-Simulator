@@ -30,7 +30,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
 
-        processGen = new ProcessGenerator("filename", false); //Δεν χρειάζεται εάν υπάρχει ήδη αρχείο
+        //processGen = new ProcessGenerator("filename", false); //Δεν χρειάζεται εάν υπάρχει ήδη αρχείο
         processParse = new ProcessGenerator("filename", true);
         cpu = new CPU();
         newProcessList = new NewProcessTemporaryList();
@@ -40,13 +40,15 @@ public class Main {
         clock = new Clock();
         readyProcessesList = new ReadyProcessesList();
 
-        SJFScheduler sjfs = new SJFScheduler(true);
+        SJFScheduler sjfs = new SJFScheduler(false);
         //sjfs.addProcessToReadyList(new Process(1,9,20));
         //sjfs.addProcessToReadyList(new Process(2,10,30));
 
+        //RRScheduler rr = new RRScheduler(2);
         
         while (!end()) {
 
+            //rr.RR();
             sjfs.SJF();
             cpu.execute();
         }

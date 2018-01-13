@@ -60,7 +60,7 @@ public class CPU {
         this.lastProcessStartTime = Main.clock.ShowTime();
 
         while (Main.clock.ShowTime() <= this.timeToNextContextSwitch) {
-
+            
             if (runningProcess.getRemainingTime() == 0) {
                 runningProcess.setProcessState(ProcessState.TERMINATED);
                 stats.processTerminated(runningProcess);

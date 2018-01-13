@@ -25,22 +25,21 @@ public class RRScheduler {
     αλγορίθμου δρομολόγησης */
     public void RR() {
 
+        // Context Switching
         Process runningProcess = Main.cpu.getRunningProcess();
 
-        if (runningProcess != null) {
-
-            if (runningProcess.getCurrentState() != ProcessState.TERMINATED) {
-                // process has not terminated yet
-                Main.readyProcessesList.addProcess(runningProcess);
-
-            }
-            Main.cpu.removeProcessFromCpu();
-
-        }
+        Main.cpu.removeProcessFromCpu();
 
         Process nextProcess = Main.readyProcessesList.getAndRemoveProcess();
-        Main.cpu.addProcess(nextProcess);
-        Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + Math.min(quantum, nextProcess.getRemainingTime()));
+        if (nextProcess != null) {
+            Main.cpu.addProcess(nextProcess);
+            Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + Math.min(quantum - 1, nextProcess.getRemainingTime()));
+        }
+        
+        if (runningProcess != null && runningProcess.getCurrentState() != ProcessState.TERMINATED) {
+            // process has not terminated yet
+            Main.readyProcessesList.addProcess(runningProcess);
+        }
 
     }
 }
