@@ -47,7 +47,7 @@ class ProcessGenerator {
             inputFile.setReadable(true);
             inputFile.setWritable(true);
 
-            n = 3;//rand.nextInt(200) + 50; //Δημιουργεί τυχαία από 50 εως 250 διεργασίες.
+            n = rand.nextInt(200) + 50; //Δημιουργεί τυχαία από 50 εως 250 διεργασίες.
 
             writer = new BufferedWriter(new FileWriter(filename));
             for (int i = 0; i < n; i++) {
