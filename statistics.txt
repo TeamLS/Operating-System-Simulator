@@ -1,0 +1,4 @@
+Maximum length of ready processes list: 119
+Average response time: 1382701.9
+Average turnaround time: 1433708.5
+Average waiting time: 1402584.6

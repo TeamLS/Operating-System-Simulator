@@ -24,12 +24,14 @@ class Clock {
     public void Time_Run() {
 
         //System.out.println("Time: " + this.ShowTime());
-        //System.out.println("Current process:");
-        //System.out.println(Main.cpu.getRunningProcess());
-       
+        
+        // Update waitingTime and responseTime of all processes from ready processes list
+        Main.readyProcessesList.updateWaitingAndResponseTimes();
+        
         this.ticks++;
 
         newProcessList.update();
+
 
 
     }

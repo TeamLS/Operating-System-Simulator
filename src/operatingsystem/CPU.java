@@ -58,7 +58,7 @@ public class CPU {
         }
 
         this.lastProcessStartTime = Main.clock.ShowTime();
-        
+
         while (Main.clock.ShowTime() <= this.timeToNextContextSwitch) {
 
             if (runningProcess.getRemainingTime() == 0) {
@@ -67,18 +67,9 @@ public class CPU {
                 break;
             }
 
-            
             Main.clock.Time_Run();
-               
-            runningProcess.decreaseCpuRemainingTime();
 
-            // Update waitingTime and responseTime of all processes
-            for (Process proc : Main.readyProcessesList.getAllReadyProcesses()) {
-                if (proc != runningProcess) {
-                    proc.increaseWaitingTime();
-                    proc.increaseResponseTime();
-                }
-            }
+            runningProcess.decreaseCpuRemainingTime();
 
         }
 

@@ -21,10 +21,6 @@ public class Main {
     public static Statistics stats;
 
     public static boolean end() {
-
-        //System.out.println("CPU RUNNING PROCESS NULL: "+(cpu.getRunningProcess() == null));
-        //System.out.println("READY PROCESS LIST EMPTY: "+readyProcessesList.isEmpty());
-        //System.out.println("NEW PROCESS LIST EMPTY: "+newProcessList.isEmpty());
         return (cpu.getRunningProcess() == null) && (readyProcessesList.isEmpty()) && (newProcessList.isEmpty());
     }
 
@@ -33,7 +29,6 @@ public class Main {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
-        // TODO code application logic here
 
         processGen = new ProcessGenerator("filename", false); //Δεν χρειάζεται εάν υπάρχει ήδη αρχείο
         processParse = new ProcessGenerator("filename", true);
@@ -55,6 +50,8 @@ public class Main {
             sjfs.SJF();
             cpu.execute();
         }
+        
+        stats.WriteStatistics2File();
         
         System.out.println("Total time needed: " + (clock.ShowTime()-1));
         System.out.println("Maximum length of ready processes list: " + stats.getMaximumLengthOfReadyProcessesList());

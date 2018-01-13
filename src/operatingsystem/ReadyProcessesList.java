@@ -55,15 +55,18 @@ public class ReadyProcessesList {
             proc.toString();
         }
     }
-    
-    public ArrayList<Process> getAllReadyProcesses(){
-        return new ArrayList(processList);
-    }
-    
+        
     public int getSize(){
         return processList.size();
     }
 
+    public void updateWaitingAndResponseTimes(){
+        for (Process proc : processList) {
+            proc.increaseWaitingTime();
+            proc.increaseResponseTime();
+        }
+    }
+    
     public boolean isEmpty() {
         
         return processList.isEmpty();

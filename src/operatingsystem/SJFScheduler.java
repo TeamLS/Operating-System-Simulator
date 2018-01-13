@@ -41,6 +41,7 @@ public class SJFScheduler {
                 } else {
                     
                     Process proc =  Main.readyProcessesList.getProcess();
+                    
                     if ( proc!=null  && ( runningProcess.getRemainingTime() > Main.readyProcessesList.getProcess().getRemainingTime())) {
 
                         // Context Switching
@@ -56,7 +57,7 @@ public class SJFScheduler {
                 Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
             }
 
-            Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + 1);
+            Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime());
 
         } else {
 

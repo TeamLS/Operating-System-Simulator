@@ -85,6 +85,10 @@ Terminated */
         }
     }
 
+    public int getPID(){
+        return this.pid;
+    }
+    
     public int getWaitingTime() {
         return this.waitingTime;
     }

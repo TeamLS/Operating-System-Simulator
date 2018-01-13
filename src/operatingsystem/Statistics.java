@@ -5,9 +5,15 @@
  */
 package operatingsystem;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import static operatingsystem.Main.stats;
 
 /* Αυτή η κλάση υπολογίζει ορισμένα στατιστικά στοιχεία βάσει των διεργασιών που εμφανίζονται στο σύστημα και
 τα αποθηκεύει σε ένα αρχείο */
@@ -18,23 +24,24 @@ public class Statistics {
     /* ο μέσος χρόνος αναμονής των διεργασιών προς εκτέλεση */
     private float averageWaitingTime;
     /* ο τρέχων συνολικός χρόνος αναμονής διεργασιών */
-    private int totalWaitingTime;
+    private float totalWaitingTime;
     /* ο μέσος χρόνος απόκρισης */
-    private int responseTime;
+    private float responseTime;
     /* το τρέχον μέγιστο πλήθος διεργασιών προς εκτέλεση */
     private int maximumLengthOfReadyProcessesList;
     /* ο τρέχων συνολικός αριθμός διεργασιών */
     private int totalNumberOfProcesses;
     /*αρχείο που αποθηκεύονται τα στατιστικά δεδομένα */
-    private File outputFile;
+    private String fileName;
 
     private List<Process> terminatedProcesses;
 
     /* constructor της κλάσης */
-    public Statistics(String filename) {
+    public Statistics(String fileName) {
 
+        this.fileName = fileName;
         this.maximumLengthOfReadyProcessesList = 0;
-        this.terminatedProcesses  = new ArrayList<>();
+        this.terminatedProcesses = new ArrayList<>();
 
     }
 
@@ -46,15 +53,14 @@ public class Statistics {
 
     }
 
+    public int getMaximumLengthOfReadyProcessesList() {
+        return maximumLengthOfReadyProcessesList;
+    }
+
     public void processTerminated(Process process) {
         this.terminatedProcesses.add(process);
     }
-    
-    public int getMaximumLengthOfReadyProcessesList(){
-        return maximumLengthOfReadyProcessesList;
-    }
-    
-    
+
     /*υπολογίζει τον μέσο χρόνο απόκρισης*/
     public float CalculateAverageWaitingTime() {
 
@@ -63,9 +69,9 @@ public class Statistics {
         for (Process proc : terminatedProcesses) {
             averageWaitingTime += proc.getWaitingTime();
         }
-        
+
         averageWaitingTime /= terminatedProcesses.size();
-        
+
         return this.averageWaitingTime;
     }
 
@@ -77,9 +83,9 @@ public class Statistics {
         for (Process proc : terminatedProcesses) {
             responseTime += proc.getResponseTime();
         }
-        
+
         responseTime /= terminatedProcesses.size();
-        
+
         return this.responseTime;
     }
 
@@ -89,14 +95,14 @@ public class Statistics {
         averageTurnaroundTime = 0;
 
         for (Process proc : terminatedProcesses) {
-            averageTurnaroundTime += proc.getWaitingTime() + proc.getResponseTime();
+            averageTurnaroundTime += proc.getWaitingTime() + proc.getTotalTime();
         }
-        
+
         averageTurnaroundTime /= terminatedProcesses.size();
-        
+
         return this.averageTurnaroundTime;
     }
-    
+
     /*υπολογίζει τον συνολικό χρόνο αναμονής*/
     public float CalculateTotalWaitingTime() {
 
@@ -105,15 +111,32 @@ public class Statistics {
         for (Process proc : terminatedProcesses) {
             totalWaitingTime += proc.getWaitingTime();
         }
-        
+
         return totalWaitingTime;
     }
-    
-    public int getTotalNumberOfProcesses(){
+
+    public int getTotalNumberOfProcesses() {
         return this.terminatedProcesses.size();
     }
-    
+
     /* προσθέτει μια νέα γραμμή με τα τρέχοντα στατιστικά στο αρχείο outputFile */
     public void WriteStatistics2File() {
+
+        BufferedWriter writer = null;
+
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "utf-8"));
+            writer.write("Maximum length of ready processes list: " + stats.getMaximumLengthOfReadyProcessesList());
+            writer.newLine();
+            writer.write("Average response time: " + CalculateAverageResponseTime());
+            writer.newLine();
+            writer.write("Average turnaround time: " + stats.CalculateAverageTurnaroundTime());
+            writer.newLine();
+            writer.write("Average waiting time: " + stats.CalculateAverageWaitingTime());
+            writer.close();
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+
     }
 }
