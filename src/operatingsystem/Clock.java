@@ -23,11 +23,15 @@ class Clock {
     /* αύξηση των χτύπων του ρολογιού (+1) */
     public void Time_Run() {
 
+        //System.out.println("Time: " + this.ShowTime());
+        //System.out.println("Current process:");
+        //System.out.println(Main.cpu.getRunningProcess());
+       
         this.ticks++;
-        
+
         newProcessList.update();
-        
-        
+
+
     }
 
     /* επιστροφή της ώρας βάσει της μεταβλητής ticks */

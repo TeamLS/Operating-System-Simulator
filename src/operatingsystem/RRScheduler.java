@@ -35,13 +35,12 @@ public class RRScheduler {
 
             }
             Main.cpu.removeProcessFromCpu();
-           
 
         }
-        
-         Process nextProcess = Main.readyProcessesList.getAndRemoveProcess();
-         Main.cpu.addProcess(nextProcess);
-         Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + Math.min(quantum, nextProcess.getRemainingTime()));
+
+        Process nextProcess = Main.readyProcessesList.getAndRemoveProcess();
+        Main.cpu.addProcess(nextProcess);
+        Main.cpu.setTimeToNextContextSwitch(Main.clock.ShowTime() + Math.min(quantum, nextProcess.getRemainingTime()));
 
     }
 }

@@ -103,7 +103,7 @@ Terminated */
 
         // StringBuilder info  = new StringBuilder();
         return "PID: " + this.pid + '\n'
-                + "Current State: " + this.currentState + '\n'
+                + "Current State: " + ProcessState.getStateName(this.currentState) + '\n'
                 + "Arrival Time: " + this.arrivalTime + '\n'
                 + "CPU Total Time: " + this.cpuTotalTime + '\n'
                 + "CPU Remaining Time: " + this.cpuRemainingTime + '\n';

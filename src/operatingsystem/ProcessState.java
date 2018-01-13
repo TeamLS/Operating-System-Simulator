@@ -15,4 +15,19 @@ public class ProcessState {
     public static int RUNNING = 2;
     public static int TERMINATED = 3;
     
+    public static String getStateName(int state){
+        switch (state){
+            case 0:
+                return "NEW";
+            case 1:
+                return "READY";
+            case 2:
+                return "RUNNING";
+            case 3:
+                return "TERMINATED";
+            default:
+                return "UNSUPPORTED STATE";
+        }
+    }
+    
 }

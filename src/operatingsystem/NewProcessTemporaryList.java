@@ -17,12 +17,11 @@ public class NewProcessTemporaryList {
 
     /* η λίστα που περιέχει τις νέες διεργασίες */
     private Queue<Process> processList;
-    private Process nextProcessForReadyList;
 
     /* constructor - αρχικοποίηση της λίστας και άλλων πεδίων */
     public NewProcessTemporaryList() {
 
-        this.processList = new PriorityQueue<>(new ArrivalTimeComparator());
+        this.processList = new PriorityQueue<>(new ArrivalTimeComparator().reversed());
     }
 
     /* εισαγωγή μιας νέας διεργασίας στη λίστα */
@@ -37,27 +36,37 @@ public class NewProcessTemporaryList {
         }
         return null;
     }
+    
+    /* επιστροφή της πρώτης διεργασίας της λίστας χωρις διαγραφή της διεργασίας από τη λίστα */
+    public Process peekFirst() {
+        if (!processList.isEmpty()) {
+            return processList.peek();
+        }
+        return null;
+    }
 
     /* εκτύπωση της λίστας με τις νέες διεργασίες στην οθόνη */
     public void printList() {
-
         for (Process proc : processList) {
             System.out.println(proc.toString());
         }
     }
 
-    void update() {
-        if (nextProcessForReadyList == null) {
-            nextProcessForReadyList = getFirst();
-            if (nextProcessForReadyList == null){
+    public void update() {
+        
+        Process nextProcessForReadyList = peekFirst();
+        if (nextProcessForReadyList == null){
+            return;
+        }
+        
+        while (nextProcessForReadyList.getArrivalTime() == Main.clock.ShowTime()) {
+            Main.readyProcessesList.addProcess(getFirst());
+            nextProcessForReadyList = peekFirst();
+            if (nextProcessForReadyList == null) {
                 return;
             }
         }
         
-        if (nextProcessForReadyList.getArrivalTime() == Main.clock.ShowTime()) {
-            this.addNewProcess(nextProcessForReadyList);
-            nextProcessForReadyList = getFirst();
-        }
     }
 
     public boolean isEmpty() {

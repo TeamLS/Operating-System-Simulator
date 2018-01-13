@@ -15,7 +15,7 @@ public class SJFScheduler {
 
     SJFScheduler(boolean isPreemptive) {
         this.isPreemptive = isPreemptive;
-        Main.readyProcessesList.defineQueueType(new PriorityQueue<>(new TotalTimeComparator()));
+        Main.readyProcessesList.defineQueueType(new PriorityQueue<>(new TotalTimeComparator().reversed()));
     }
 
     /* τοποθετεί μια διεργασία στην κατάλληλη θέση της λίστας των έτοιμων διεργασιών */
@@ -43,9 +43,11 @@ public class SJFScheduler {
                     Process proc =  Main.readyProcessesList.getProcess();
                     if ( proc!=null  && ( runningProcess.getRemainingTime() > Main.readyProcessesList.getProcess().getRemainingTime())) {
 
+                        // Context Switching
+                        
                         Main.cpu.removeProcessFromCpu();
-                        Main.readyProcessesList.addProcess(runningProcess);
                         Main.cpu.addProcess(Main.readyProcessesList.getAndRemoveProcess());
+                        Main.readyProcessesList.addProcess(runningProcess);
 
                     }
                 }

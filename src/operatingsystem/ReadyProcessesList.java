@@ -45,7 +45,6 @@ public class ReadyProcessesList {
     }
         
     public Process getAndRemoveProcess() {
-      
         return this.processList.poll();
     }   
 

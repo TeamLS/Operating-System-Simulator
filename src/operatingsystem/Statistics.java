@@ -24,7 +24,7 @@ public class Statistics {
     /* το τρέχον μέγιστο πλήθος διεργασιών προς εκτέλεση */
     private int maximumLengthOfReadyProcessesList;
     /* ο τρέχων συνολικός αριθμός διεργασιών */
-    public int totalNumberOfProcesses;
+    private int totalNumberOfProcesses;
     /*αρχείο που αποθηκεύονται τα στατιστικά δεδομένα */
     private File outputFile;
 
@@ -109,6 +109,9 @@ public class Statistics {
         return totalWaitingTime;
     }
     
+    public int getTotalNumberOfProcesses(){
+        return this.terminatedProcesses.size();
+    }
     
     /* προσθέτει μια νέα γραμμή με τα τρέχοντα στατιστικά στο αρχείο outputFile */
     public void WriteStatistics2File() {
