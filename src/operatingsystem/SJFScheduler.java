@@ -22,6 +22,11 @@ public class SJFScheduler {
     public void addProcessToReadyList(Process process) {
         Main.readyProcessesList.addProcess(process);
     }
+    
+    public void setIsPreemptive (boolean isPreemptive){
+        
+        this.isPreemptive = isPreemptive;
+    }
 
     /* εκτελεί την εναλλαγή διεργασίας στη CPU με βάση τη λίστα έτοιμων διεργασιών και το είδος του
     αλγορίθμου δρομολόγησης (preemptive / non-preemptive) */
