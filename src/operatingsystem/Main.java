@@ -45,23 +45,14 @@ public class Main {
         SJFScheduler sjfs = new SJFScheduler(false);
           
         while (!end()) {
-
             sjfs.SJF();
             cpu.execute();
         }
         
-       
         stats.WriteStatistics2File();
+        stats.printStatistics();
         
-        System.out.println("Scheduler: Non-Preemptive SJFS");
-        System.out.println("Total time needed: " + (clock.ShowTime()-1));
-        System.out.println("Maximum length of ready processes list: " + stats.getMaximumLengthOfReadyProcessesList());
-        System.out.println("Average response time: " + stats.CalculateAverageResponseTime());
-        System.out.println("Average turnaround time: " + stats.CalculateAverageTurnaroundTime());
-        System.out.println("Average waiting time: " + stats.CalculateAverageWaitingTime());
-        System.out.println("Total waiting time: " + stats.CalculateTotalWaitingTime());
         
-        System.out.println("=============================================");
         // ============== NON-PREEMPTIVE SJF ==============//
         clock.reset();
         processParse.addProcessesToTemporayList();
@@ -73,17 +64,38 @@ public class Main {
             cpu.execute();
         }
         
+        stats.WriteStatistics2File();
+        stats.printStatistics();
+        
+        
+        // ============== RR WITH QUANTUM = 50 ==============//
+        
+        clock.reset();
+        processParse.addProcessesToTemporayList();
+        RRScheduler rrs = new RRScheduler(50);
+        
+        while (!end()) {
+            rrs.RR();
+            cpu.execute();
+        }
+        
+        stats.WriteStatistics2File();
+        stats.printStatistics();
+        
+        // ============== RR WITH QUANTUM = 300 ==============//
+        clock.reset();
+        processParse.addProcessesToTemporayList();
+        rrs.setQuantum(300);
+        
+        while (!end()) {
+            rrs.RR();
+            cpu.execute();
+        }
        
         stats.WriteStatistics2File();
-        
-        System.out.println("Scheduler: Preemptive SJF ");
-        System.out.println("Total time needed: " + (clock.ShowTime()-1));
-        System.out.println("Maximum length of ready processes list: " + stats.getMaximumLengthOfReadyProcessesList());
-        System.out.println("Average response time: " + stats.CalculateAverageResponseTime());
-        System.out.println("Average turnaround time: " + stats.CalculateAverageTurnaroundTime());
-        System.out.println("Average waiting time: " + stats.CalculateAverageWaitingTime());
-        System.out.println("Total waiting time: " + stats.CalculateTotalWaitingTime());
+        stats.printStatistics();
 
     }
+    
 
 }

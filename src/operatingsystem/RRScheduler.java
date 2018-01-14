@@ -20,6 +20,10 @@ public class RRScheduler {
     public void addProcessToReadyList(Process process) {
         Main.readyProcessesList.addProcess(process);
     }
+    
+    public void setQuantum(int quantum){
+        this.quantum = quantum;
+    }
 
     /* εκτελεί την εναλλαγή διεργασίας στη CPU με βάση τη λίστα έτοιμων διεργασιών και το είδος του
     αλγορίθμου δρομολόγησης */

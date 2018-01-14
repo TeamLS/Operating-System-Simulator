@@ -1,4 +1,33 @@
 Maximum length of ready processes list: 1
 Average response time: 3.0
 Average turnaround time: 8.666667
+Average waiting time: 3.0Maximum length of ready processes list: 1
+Average response time: 3.0
+Average turnaround time: 8.666667
+Average waiting time: 3.0Maximum length of ready processes list: 1
+Average response time: 3.0
+Average turnaround time: 8.666667
+Average waiting time: 3.0Maximum length of ready processes list: 1
+Average response time: 3.0
+Average turnaround time: 8.666667
+Average waiting time: 3.0
+Maximum length of ready processes list: 1
+Average response time: 3.0
+Average turnaround time: 8.666667
+Average waiting time: 3.0
+Maximum length of ready processes list: 1
+Average response time: 3.0
+Average turnaround time: 8.666667
+Average waiting time: 3.0
+Maximum length of ready processes list: 1
+Average response time: 3.0
+Average turnaround time: 8.666667
+Average waiting time: 3.0
+Maximum length of ready processes list: 1
+Average response time: 3.0
+Average turnaround time: 8.666667
+Average waiting time: 3.0
+Maximum length of ready processes list: 1
+Average response time: 3.0
+Average turnaround time: 8.666667
 Average waiting time: 3.0

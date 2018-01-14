@@ -125,7 +125,7 @@ public class Statistics {
         BufferedWriter writer = null;
 
         try {
-            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "utf-8"));
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName, true), "utf-8"));
             writer.write("Maximum length of ready processes list: " + stats.getMaximumLengthOfReadyProcessesList());
             writer.newLine();
             writer.write("Average response time: " + CalculateAverageResponseTime());
@@ -133,10 +133,26 @@ public class Statistics {
             writer.write("Average turnaround time: " + stats.CalculateAverageTurnaroundTime());
             writer.newLine();
             writer.write("Average waiting time: " + stats.CalculateAverageWaitingTime());
+            writer.newLine();
             writer.close();
         } catch (IOException ex) {
             System.out.println(ex);
         }
 
     }
+    
+    
+    public void printStatistics(){  
+        
+        System.out.println("=============================================");
+        
+        System.out.println("Scheduler: Preemptive SJF ");
+        System.out.println("Total time needed: " + (Main.clock.ShowTime()-1));
+        System.out.println("Maximum length of ready processes list: " + Main.stats.getMaximumLengthOfReadyProcessesList());
+        System.out.println("Average response time: " + Main.stats.CalculateAverageResponseTime());
+        System.out.println("Average turnaround time: " + Main.stats.CalculateAverageTurnaroundTime());
+        System.out.println("Average waiting time: " + Main.stats.CalculateAverageWaitingTime());
+        System.out.println("Total waiting time: " + Main.stats.CalculateTotalWaitingTime());
+    }
+    
 }
