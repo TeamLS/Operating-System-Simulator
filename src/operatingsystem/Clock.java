@@ -41,4 +41,9 @@ class Clock {
 
         return this.ticks;
     }
+    
+    public void reset() {
+        
+        this.ticks = 0;
+    }
 }
