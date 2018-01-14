@@ -1,33 +1,24 @@
+Scheduler: Preemptive SJF
+Maximum length of ready processes list: 127
+Average response time: 1521164.5
+Average turnaround time: 1551979.8
+Average waiting time: 1521164.5
+
+Scheduler: Non-Preemptive SJF
 Maximum length of ready processes list: 1
-Average response time: 3.0
-Average turnaround time: 8.666667
-Average waiting time: 3.0Maximum length of ready processes list: 1
-Average response time: 3.0
-Average turnaround time: 8.666667
-Average waiting time: 3.0Maximum length of ready processes list: 1
-Average response time: 3.0
-Average turnaround time: 8.666667
-Average waiting time: 3.0Maximum length of ready processes list: 1
-Average response time: 3.0
-Average turnaround time: 8.666667
-Average waiting time: 3.0
+Average response time: 1521164.1
+Average turnaround time: 1551979.2
+Average waiting time: 1521164.1
+
+Scheduler: Round Robin with quantum = 50
 Maximum length of ready processes list: 1
-Average response time: 3.0
-Average turnaround time: 8.666667
-Average waiting time: 3.0
+Average response time: 1521164.1
+Average turnaround time: 1551979.2
+Average waiting time: 1521164.1
+
+Scheduler: Round Robin with quantum = 300
 Maximum length of ready processes list: 1
-Average response time: 3.0
-Average turnaround time: 8.666667
-Average waiting time: 3.0
-Maximum length of ready processes list: 1
-Average response time: 3.0
-Average turnaround time: 8.666667
-Average waiting time: 3.0
-Maximum length of ready processes list: 1
-Average response time: 3.0
-Average turnaround time: 8.666667
-Average waiting time: 3.0
-Maximum length of ready processes list: 1
-Average response time: 3.0
-Average turnaround time: 8.666667
-Average waiting time: 3.0
+Average response time: 1521164.1
+Average turnaround time: 1551979.2
+Average waiting time: 1521164.1
+

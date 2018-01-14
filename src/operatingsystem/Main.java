@@ -30,7 +30,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
 
-       // processGen = new ProcessGenerator("filename", false); //Δεν χρειάζεται εάν υπάρχει ήδη αρχείο
+        processGen = new ProcessGenerator("filename", false); //Δεν χρειάζεται εάν υπάρχει ήδη αρχείο
         processParse = new ProcessGenerator("filename", true);
         cpu = new CPU();
         newProcessList = new NewProcessTemporaryList();
@@ -49,12 +49,14 @@ public class Main {
             cpu.execute();
         }
         
-        stats.WriteStatistics2File();
+        stats.WriteStatistics2File("Scheduler: Preemptive SJF");
+        System.out.println("Scheduler: Preemptive SJF");
         stats.printStatistics();
         
         
         // ============== NON-PREEMPTIVE SJF ==============//
         clock.reset();
+        stats.reset();
         processParse.addProcessesToTemporayList();
         sjfs.setIsPreemptive(true);
         
@@ -64,13 +66,15 @@ public class Main {
             cpu.execute();
         }
         
-        stats.WriteStatistics2File();
+        stats.WriteStatistics2File("Scheduler: Non-Preemptive SJF");        
+        System.out.println("Scheduler: Non-Preemptive SJF");
         stats.printStatistics();
         
         
         // ============== RR WITH QUANTUM = 50 ==============//
         
         clock.reset();
+        stats.reset();
         processParse.addProcessesToTemporayList();
         RRScheduler rrs = new RRScheduler(50);
         
@@ -79,11 +83,13 @@ public class Main {
             cpu.execute();
         }
         
-        stats.WriteStatistics2File();
+        stats.WriteStatistics2File("Scheduler: Round Robin with quantum = 50");
+        System.out.println("Scheduler: Round Robin with quantum = 50");
         stats.printStatistics();
         
         // ============== RR WITH QUANTUM = 300 ==============//
         clock.reset();
+        stats.reset();
         processParse.addProcessesToTemporayList();
         rrs.setQuantum(300);
         
@@ -92,7 +98,8 @@ public class Main {
             cpu.execute();
         }
        
-        stats.WriteStatistics2File();
+        stats.WriteStatistics2File("Scheduler: Round Robin with quantum = 300");
+        System.out.println("Scheduler: Round Robin with quantum = 300");
         stats.printStatistics();
 
     }
