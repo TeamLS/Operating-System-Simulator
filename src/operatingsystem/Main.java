@@ -30,31 +30,53 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
 
-        //processGen = new ProcessGenerator("filename", false); //Δεν χρειάζεται εάν υπάρχει ήδη αρχείο
+       // processGen = new ProcessGenerator("filename", false); //Δεν χρειάζεται εάν υπάρχει ήδη αρχείο
         processParse = new ProcessGenerator("filename", true);
         cpu = new CPU();
         newProcessList = new NewProcessTemporaryList();
-        processParse.addProcessesToTemporayList();
-        //newProcessList.printList();
         stats = new Statistics("statistics.txt");
         clock = new Clock();
         readyProcessesList = new ReadyProcessesList();
 
-        SJFScheduler sjfs = new SJFScheduler(false);
-        //sjfs.addProcessToReadyList(new Process(1,9,20));
-        //sjfs.addProcessToReadyList(new Process(2,10,30));
-
-        //RRScheduler rr = new RRScheduler(2);
         
+         // ============== PREEMPTIVE SJF ==============//
+        
+        processParse.addProcessesToTemporayList();
+        SJFScheduler sjfs = new SJFScheduler(false);
+          
         while (!end()) {
 
-            //rr.RR();
             sjfs.SJF();
             cpu.execute();
         }
         
+       
         stats.WriteStatistics2File();
         
+        System.out.println("Scheduler: Non-Preemptive SJFS");
+        System.out.println("Total time needed: " + (clock.ShowTime()-1));
+        System.out.println("Maximum length of ready processes list: " + stats.getMaximumLengthOfReadyProcessesList());
+        System.out.println("Average response time: " + stats.CalculateAverageResponseTime());
+        System.out.println("Average turnaround time: " + stats.CalculateAverageTurnaroundTime());
+        System.out.println("Average waiting time: " + stats.CalculateAverageWaitingTime());
+        System.out.println("Total waiting time: " + stats.CalculateTotalWaitingTime());
+        
+        System.out.println("=============================================");
+        // ============== NON-PREEMPTIVE SJF ==============//
+        clock.reset();
+        processParse.addProcessesToTemporayList();
+        sjfs.setIsPreemptive(true);
+        
+        while (!end()) {
+
+            sjfs.SJF();
+            cpu.execute();
+        }
+        
+       
+        stats.WriteStatistics2File();
+        
+        System.out.println("Scheduler: Preemptive SJF ");
         System.out.println("Total time needed: " + (clock.ShowTime()-1));
         System.out.println("Maximum length of ready processes list: " + stats.getMaximumLengthOfReadyProcessesList());
         System.out.println("Average response time: " + stats.CalculateAverageResponseTime());
