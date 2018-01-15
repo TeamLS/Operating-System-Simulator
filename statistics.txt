@@ -1,24 +1,24 @@
 Scheduler: Preemptive SJF
-Maximum length of ready processes list: 127
-Average response time: 1521164.5
-Average turnaround time: 1551979.8
-Average waiting time: 1521164.5
+Maximum length of ready processes list: 160
+Average response time: 1964897.4
+Average turnaround time: 2033623.6
+Average waiting time: 2001303.6
 
 Scheduler: Non-Preemptive SJF
-Maximum length of ready processes list: 1
-Average response time: 1521164.1
-Average turnaround time: 1551979.2
-Average waiting time: 1521164.1
+Maximum length of ready processes list: 162
+Average response time: 2017734.2
+Average turnaround time: 2050054.6
+Average waiting time: 2017734.2
 
-Scheduler: Round Robin with quantum = 50
-Maximum length of ready processes list: 1
-Average response time: 1521164.1
-Average turnaround time: 1551979.2
-Average waiting time: 1521164.1
+Scheduler: Round Robin with quantum = 200
+Maximum length of ready processes list: 186
+Average response time: 18559.633
+Average turnaround time: 4127766.5
+Average waiting time: 4095447.8
 
-Scheduler: Round Robin with quantum = 300
-Maximum length of ready processes list: 1
-Average response time: 1521164.1
-Average turnaround time: 1551979.2
-Average waiting time: 1521164.1
+Scheduler: Round Robin with quantum = 5000
+Maximum length of ready processes list: 187
+Average response time: 455346.12
+Average turnaround time: 4146129.8
+Average waiting time: 4113810.5
 

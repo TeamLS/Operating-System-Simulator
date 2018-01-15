@@ -1,20 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package operatingsystem;
 
-/**
- *
- * @author Thanasis
- */
+// Χρίστος Γκόγκος (2738), Αθανάσιος Μπόλλας (2779), Δημήτριος Σβίγγας (2618), Αναστάσιος Τεμπερεκίδης (2808)
+
+/* κλάση που κρατάει τους αντίστοιχους αριθμούς για κάθε κατάσταση διεργασίας */
 public class ProcessState {
     public static int NEW = 0;
     public static int READY = 1;
     public static int RUNNING = 2;
     public static int TERMINATED = 3;
     
+    /* επιστρέφει σε string την κατάσταση της διεργασίας */
     public static String getStateName(int state){
         switch (state){
             case 0:

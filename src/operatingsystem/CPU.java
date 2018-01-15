@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package operatingsystem;
 
 import static operatingsystem.Main.stats;
+
+// Χρίστος Γκόγκος (2738), Αθανάσιος Μπόλλας (2779), Δημήτριος Σβίγγας (2618), Αναστάσιος Τεμπερεκίδης (2808)
 
 /* Η κλάση αυτή παριστάνει τη μονάδα επεξεργασίας CPU του συστήματος */
 public class CPU {
@@ -30,8 +27,8 @@ public class CPU {
     public void addProcess(Process process) {
         if (process != null) {
             process.setProcessState(ProcessState.RUNNING);
-            this.runningProcess = process;
             process.requestAccepted();
+            this.runningProcess = process;
         }
     }
 
@@ -44,37 +41,40 @@ public class CPU {
         return proc;
     }
 
+    /* αλλάγη του χρόνου επόμενου context switch */
     public void setTimeToNextContextSwitch(int time) {
-
         this.timeToNextContextSwitch = time;
     }
 
     /* εκτέλεση της διεργασίας με αντίστοιχη μέιωση του χρόνου εκτέλεσής της */
     public void execute() {
 
-        if (runningProcess == null) {
+        if (runningProcess == null) { // Δεν υπάρχει καμία διεργασία που τρέχει στην CPU
             Main.clock.Time_Run();
             return;
         }
 
         this.lastProcessStartTime = Main.clock.ShowTime();
 
+        // Εκτέλεση της διεργασίας μέχρι το επόμενο context-switch
         while (Main.clock.ShowTime() <= this.timeToNextContextSwitch) {
-            
-            if (runningProcess.getRemainingTime() == 0) {
+
+            if (runningProcess.getRemainingTime() == 0) { // Η διεργασία έχει τερματίσει
                 runningProcess.setProcessState(ProcessState.TERMINATED);
                 stats.processTerminated(runningProcess);
                 break;
             }
 
+            // Εκτέλεση της διεργασίας
             Main.clock.Time_Run();
-
             runningProcess.decreaseCpuRemainingTime();
 
         }
 
     }
 
+    /* επιστρέφει την διεργασία που τρέχει αυτή τη στιγμή
+    ή null αν δεν τρέχει καμία διεργασία στην CPU */
     public Process getRunningProcess() {
         return this.runningProcess;
     }

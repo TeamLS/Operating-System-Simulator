@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package operatingsystem;
 
 import java.io.BufferedReader;
@@ -15,6 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+// Χρίστος Γκόγκος (2738), Αθανάσιος Μπόλλας (2779), Δημήτριος Σβίγγας (2618), Αναστάσιος Τεμπερεκίδης (2808)
+
 /* Η συγκεκριμένη κλάση αναπαριστά μια γεννήτρια διεργασιών για την προσομοίωση */
 class ProcessGenerator {
 
@@ -23,21 +20,16 @@ class ProcessGenerator {
     private BufferedWriter writer;
     private File inputFile;
     private ArrayList<Process> processes;
-    private Random rand = new Random();
+    private final Random rand = new Random();
     private int n;
     private int prev = 0; //Ο χρόνος άφοιξης της προηγούμενηυς διεργασίας. Την χρονική στιγμή 0 δεν ήρθε καμία διεργασία.
 
-    private int cpuBurstTime = 60000; //60000 μπαίνει για να διαρκεί μια διεργασία από 0 εως 1 λεπτό. (60000 millisecond == 1 λεπτό).
-    private int cpuArrivalTime = 2000; //2000 είναι τα περισσότερα millisecond "διαφοράς άφοιξης" που μπορεί να έχει η μια διεργασία από την προηγούμενη.
+    private final int cpuBurstTime = 60000; //60000 μπαίνει για να διαρκεί μια διεργασία από 0 εως 1 λεπτό. (60000 millisecond == 1 λεπτό).
+    private final int cpuArrivalTime = 2000; //2000 είναι τα περισσότερα millisecond "διαφοράς άφοιξης" που μπορεί να έχει η μια διεργασία από την προηγούμενη.
 
     /* constructor της κλάσης; αν readFile == false δημιουργεί το αρχείο inputFile με όνομα
     filename για αποθήκευση, αλλιώς ανοίγει το αρχείο inputFile για ανάγνωση */
     public ProcessGenerator(String filename, boolean readFile) throws IOException {
-
-        if (filename.compareTo("filename") != 0) {
-            System.err.println("Error: In 'Main' function give as first parameter to processGenerator the String 'filename' and none other string."); //Ασφάλια.
-            System.exit(1);
-        }
 
         inputFile = new File(filename);
 
@@ -58,7 +50,7 @@ class ProcessGenerator {
         } else {
 
             if (inputFile.exists() == false) {
-                System.err.println("Error: Expected file by name 'filename.file' in src");
+                System.err.println("Error: file " + inputFile.getName() + " not found");
                 System.exit(2);
             }
 
@@ -109,7 +101,7 @@ class ProcessGenerator {
         }
 
         return processes; //Τοποθέτηση των νέων διεργασιών στην λίστα.
-        //return new ArrayList<>(); Δεν χρειάστηκε
+        
     }
 
     public void addProcessesToTemporayList() {

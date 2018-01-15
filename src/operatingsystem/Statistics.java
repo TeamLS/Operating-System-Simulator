@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package operatingsystem;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -17,6 +11,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static operatingsystem.Main.stats;
+
+// Χρίστος Γκόγκος (2738), Αθανάσιος Μπόλλας (2779), Δημήτριος Σβίγγας (2618), Αναστάσιος Τεμπερεκίδης (2808)
 
 /* Αυτή η κλάση υπολογίζει ορισμένα στατιστικά στοιχεία βάσει των διεργασιών που εμφανίζονται στο σύστημα και
 τα αποθηκεύει σε ένα αρχείο */
@@ -44,33 +40,35 @@ public class Statistics {
 
         outputFile = new File(fileName);
         try {
-            new FileWriter(outputFile, false); // Create or overwrite output file
+            new FileWriter(outputFile, false); // Δημιουργία ή εκκαθάριση του αρχείου για τα στατιστικά
         } catch (IOException ex) {
             Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        this.maximumLengthOfReadyProcessesList = 0;
+        maximumLengthOfReadyProcessesList = 0;
         this.terminatedProcesses = new ArrayList<>();
 
     }
-
+    
+    /* επαναφέρει τα στατιστικά στις αρχικές τους τιμές ώστε να τρέξει νέα προσομοίωση */
     public void reset() {
-        this.maximumLengthOfReadyProcessesList = 0;
+        maximumLengthOfReadyProcessesList = 0;
         this.terminatedProcesses = new ArrayList<>();
     }
 
     /* ελέγχει το μήκος της λίστας έτοιμων διεργασιών και ενημερώνει, αν είναι απαραίτητο, την τιμή της
 μεταβλητής maximumLengthOfReadyProcessesList */
     public void UpdateMaximumListLength() {
-
         maximumLengthOfReadyProcessesList = Math.max(Main.readyProcessesList.getSize(), maximumLengthOfReadyProcessesList);
-
     }
 
+    /* επιστρέφει το τρέχον μέγιστο πλήθος διεργασιών προς εκτέλεση */
     public int getMaximumLengthOfReadyProcessesList() {
         return maximumLengthOfReadyProcessesList;
     }
 
+    /* προσθήκη μίας τερματισμένης διεργασίας στη λίστα των terminated
+    processes ώστε να υπολογιστούν στη συνέχεια τα στατιστικά */
     public void processTerminated(Process process) {
         this.terminatedProcesses.add(process);
     }
@@ -129,18 +127,21 @@ public class Statistics {
         return totalWaitingTime;
     }
 
+    /* επιστρέφει το πλήθος των διεργασιών που έχουν τερματίσει */
     public int getTotalNumberOfProcesses() {
         return this.terminatedProcesses.size();
     }
 
-    /* προσθέτει μια νέα γραμμή με τα τρέχοντα στατιστικά στο αρχείο outputFile */
+    /* προσθέτει μια νέα γραμμή με τα τρέχοντα στατιστικά στο αρχείο outputFile
+    και δέχεται σαν παράμετρο ένα string για την περιγραφή του αλγορίθμου
+    που χρησιμοποιήθηκε ώστε να αποθηκευτεί και αυτή η πληροφορία στο αρχείο */
     public void WriteStatistics2File(String AlgorithmDescription) {
 
         BufferedWriter writer;
 
         try {
             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile, true), "utf-8"));
-            writer.write(AlgorithmDescription);
+            writer.write("Scheduler: " + AlgorithmDescription);
             writer.newLine();
             writer.write("Maximum length of ready processes list: " + stats.getMaximumLengthOfReadyProcessesList());
             writer.newLine();
@@ -158,15 +159,16 @@ public class Statistics {
 
     }
 
-    public void printStatistics() {
+    /* εμφάνιση κάποιων χρήσιμων στατιστικών */
+    public void printStatistics(String AlgorithmDescription) {
 
+        System.out.println("Scheduler: " + AlgorithmDescription);
         System.out.println("Total time needed: " + (Main.clock.ShowTime() - 1));
         System.out.println("Maximum length of ready processes list: " + Main.stats.getMaximumLengthOfReadyProcessesList());
         System.out.println("Average response time: " + Main.stats.CalculateAverageResponseTime());
         System.out.println("Average turnaround time: " + Main.stats.CalculateAverageTurnaroundTime());
         System.out.println("Average waiting time: " + Main.stats.CalculateAverageWaitingTime());
         System.out.println("Total waiting time: " + Main.stats.CalculateTotalWaitingTime());
-
         System.out.println("=============================================");
     }
 

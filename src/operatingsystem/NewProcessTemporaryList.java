@@ -1,26 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package operatingsystem;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
+
+// Χρίστος Γκόγκος (2738), Αθανάσιος Μπόλλας (2779), Δημήτριος Σβίγγας (2618), Αναστάσιος Τεμπερεκίδης (2808)
 
 /* Αναπαριστά μια λίστα στην οποία τοποθετούνται νέες διεργασίες που μόλις έχουν δημιουργηθεί και βρίσκονται
 στην κατάσταση new */
 public class NewProcessTemporaryList {
 
     /* η λίστα που περιέχει τις νέες διεργασίες */
-    private Queue<Process> processList;
+    private final Queue<Process> processList;
 
     /* constructor - αρχικοποίηση της λίστας και άλλων πεδίων */
     public NewProcessTemporaryList() {
-
+        // Δίνεται προτεραιότητα στις διεργασίες με το μικρότερο arrival time
         this.processList = new PriorityQueue<>(new ArrivalTimeComparator().reversed());
     }
 
@@ -51,7 +45,9 @@ public class NewProcessTemporaryList {
             System.out.println(proc.toString());
         }
     }
-
+    
+    /* Έλεγχος για διεργασίες που έφτασε ο arraival time τους
+    και πέρασμά τους στην ready list */
     public void update() {
         
         Process nextProcessForReadyList = peekFirst();
@@ -59,8 +55,10 @@ public class NewProcessTemporaryList {
             return;
         }
         
+        /* όσο υπάρχουν διεργασίες που έχουν arrival time ίσο
+        με τον τωρινό χρόνο, προσθήκη αυτών στην ready list */
         while (nextProcessForReadyList.getArrivalTime() == Main.clock.ShowTime()) {
-            Main.readyProcessesList.addProcess(getFirst());
+            Main.readyProcessesList.addProcess(getFirst());            
             nextProcessForReadyList = peekFirst();
             if (nextProcessForReadyList == null) {
                 return;
@@ -69,8 +67,14 @@ public class NewProcessTemporaryList {
         
     }
 
+    /* επιστρέφει true ή false αν η new list είναι άδεια ή όχι αντίστοιχα */
     public boolean isEmpty() {
         return this.processList.isEmpty();
+    }
+    
+    /* επιστρέφει το μέγεθος της new list */
+    public int getSize(){
+        return processList.size();
     }
 
 }
