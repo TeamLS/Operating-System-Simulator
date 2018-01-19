@@ -8,3 +8,10 @@
 και με quantum=5000.
 
 ![Execution Diagram](https://github.com/tasosxak/Operating-System-Simulator/blob/master/Execution%20Diagram.png)
+
+
+<p align="center">
+  <img src="https://github.com/Thanasis1101/Hash-Code-2017-Practice-Test-Pizza-Problem-/blob/master/TeamLS%20Logo.png?raw=true">
+  <br>
+  Created by <a href="https://www.facebook.com/theteamls/" target="blank">TeamLS</a>
+</p>
